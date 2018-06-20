@@ -16,7 +16,6 @@ use mindplay\annotations\Annotations;
  * @version 1.0.0
  */
 class Manager {
-
     private static $manager;
 
     private function __construct() {
@@ -24,8 +23,8 @@ class Manager {
 
         Annotations::$config['cache'] = new AnnotationCache(__DIR__ . '/../cache');
 
-        Annotations::getManager()->registry['model'] = ModelAnnotation::class;
-        Annotations::getManager()->registry['field'] = ModelFieldAnnotation::class;
+        Annotations::getManager()->registry[ModelAnnotation::ANNOTATION_IDENTIFIER]      = ModelAnnotation::class;
+        Annotations::getManager()->registry[ModelFieldAnnotation::ANNOTATION_IDENTIFIER] = ModelFieldAnnotation::class;
     }
 
     public static function create() {

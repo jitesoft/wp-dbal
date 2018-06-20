@@ -16,12 +16,16 @@ use mindplay\annotations\IAnnotation;
  * @usage('class'=>true, 'inherited'=>false)
  */
 class ModelAnnotation implements IAnnotation {
+    public const ANNOTATION_IDENTIFIER = "model";
+
+    private $table;
 
     /**
-     * Table name of a given model.
-     * @var string
+     * @return string|null
      */
-    public $table;
+    public function getTable(): ?string {
+        return $this->table;
+    }
 
     /**
      * @param array $properties

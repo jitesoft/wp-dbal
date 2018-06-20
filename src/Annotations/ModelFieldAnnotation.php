@@ -16,9 +16,24 @@ use mindplay\annotations\IAnnotation;
  * @usage('property'=>true, 'inherited'=>true, 'multiple'=>false)
  */
 class ModelFieldAnnotation implements IAnnotation {
+    public const ANNOTATION_IDENTIFIER = "field";
 
     public $name;
     public $hidden;
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string {
+        return $this->name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden(): bool {
+        return $this->hidden;
+    }
 
     /**
      * @param array $properties

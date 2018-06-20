@@ -68,6 +68,9 @@ class ModelFieldAnnotationTest extends TestCase {
 
 }
 
+/**
+ * @model
+ */
 class TestModel_ModelFieldAnnotationTest extends AbstractModel {
 
     private $shouldNotBeRead = 100;
