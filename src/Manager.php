@@ -5,6 +5,7 @@
   © - Jitesoft 2018
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL;
+
 use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
 use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation;
 use mindplay\annotations\AnnotationCache;
@@ -19,7 +20,7 @@ class Manager {
     private static $manager;
 
     private function __construct() {
-        require_once __DIR__ . '/../vendor/autoload.php';
+        include_once __DIR__ . '/../vendor/autoload.php';
 
         Annotations::$config['cache'] = new AnnotationCache(__DIR__ . '/../cache');
 

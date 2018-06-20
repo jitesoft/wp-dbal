@@ -62,6 +62,7 @@ trait MetadataTrait {
                 'Failed to create metadata, the `model` class annotation is required.'
             );
         }
+
         $table = $classAnnotations[0]->getTable();
 
         return new ModelMetadata($table, $out);

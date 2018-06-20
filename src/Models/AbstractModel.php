@@ -28,6 +28,7 @@ class AbstractModel {
             if ($table === null) {
                 throw new AnnotationException("Invalid model annotation, required parameter `table` missing.");
             }
+
             return $table;
         } catch (ReflectionException $ex) {
             return null;
@@ -46,6 +47,7 @@ class AbstractModel {
         } catch (ReflectionException $ex) {
             return null;
         }
+
         $fields = [];
         foreach ($metadata->getFields() as $property) {
             if (!$includeHidden && $property->isHidden()) {
