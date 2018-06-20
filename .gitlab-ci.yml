@@ -6,5 +6,5 @@ test:
   image: jitesoft/phpunit
   script:
     - composer install --prefer-source --no-interaction
-    - phpunit --configuration phpunit.xml --colors=never
+    - phpunit --configuration phpunit.xml --colors=never --coverage-text
     - vendor/bin/phpcs -p --report=summary --standard=style.xml src
