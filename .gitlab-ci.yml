@@ -1,0 +1,10 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: jitesoft/phpunit
+  scripts:
+    - composer install --prefer-source --no-interaction
+    - phpunit --configuration phpunit.xml --colors=never
+    - vendor/bin/phpcs -p --report=summary --standard=style.xml src
