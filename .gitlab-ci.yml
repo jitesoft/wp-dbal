@@ -4,7 +4,7 @@ stages:
 test:
   stage: test
   image: jitesoft/phpunit
-  scripts:
+  script:
     - composer install --prefer-source --no-interaction
     - phpunit --configuration phpunit.xml --colors=never
     - vendor/bin/phpcs -p --report=summary --standard=style.xml src
