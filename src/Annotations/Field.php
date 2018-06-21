@@ -17,8 +17,14 @@ use Doctrine\Common\Annotations\Annotation\Target;
  * @Target("PROPERTY")
  */
 class Field {
-    /** @var string */
+
+    /**
+     * @var string
+     */
     public $name = null;
-    /** @var boolean */
+    /**
+     * @var boolean
+     */
     public $hidden = false;
+
 }

@@ -7,8 +7,10 @@
 namespace Jitesoft\WordPress\DBAL\Tests\Annotations;
 
 use Jitesoft\Exceptions\Database\Entity\EntityException;
+use Jitesoft\WordPress\DBAL\Annotations\BelongsTo;
 use Jitesoft\WordPress\DBAL\Annotations\Model;
 use Jitesoft\WordPress\DBAL\Models\AbstractModel;
+use Jitesoft\WordPress\DBAL\Models\Link;
 use Jitesoft\WordPress\DBAL\Tests\AbstractTestCase;
 
 /**

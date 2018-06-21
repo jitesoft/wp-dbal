@@ -15,10 +15,17 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @Annotation
  * @Target("CLASS")
  */
-final class Model {
+class Model {
+
     /**
      * @var string
      * @Required
      */
     public $table;
+
+    /**
+     * @var string
+     */
+    public $primaryKey;
+
 }

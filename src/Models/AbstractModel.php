@@ -6,12 +6,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
-use Doctrine\Common\Annotations\AnnotationException;
 use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\Exceptions\Json\JsonException;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataTrait;
 use JsonSerializable;
-use ReflectionException;
 
 /**
  * AbstractModel
@@ -23,21 +21,10 @@ class AbstractModel implements JsonSerializable {
 
     /**
      * @return null|string If null, a failure occurred.
-     * @throws AnnotationException
+     * @throws EntityException
      */
     public function getTableName(): ?string {
-        try {
-            $table = $this->getMetadata()->getTable();
-            if ($table === null) {
-                throw new AnnotationException("Invalid model annotation, required parameter `table` missing.");
-            }
-
-            return $table;
-        } catch (ReflectionException $ex) {
-            return null;
-        } catch (AnnotationException $ex) {
-            throw $ex;
-        }
+        return $this->getMetadata()->getTable();
     }
 
     /**
@@ -73,9 +60,6 @@ class AbstractModel implements JsonSerializable {
     public function jsonSerialize() {
         try {
             return $this->getFields(false);
-        } catch (AnnotationException $ex) {
-            $class = get_called_class();
-            throw new JsonException(sprintf('Failed to convert model `%s` to json.', $class), null, null, null, 0, $ex);
         } catch (EntityException $ex) {
             $class = get_called_class();
             throw new JsonException(sprintf('Failed to convert model `%s` to json.', $class), null, null, null, 0, $ex);
