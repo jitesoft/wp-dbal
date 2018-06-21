@@ -1,6 +1,6 @@
 <?php
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  ModelAnnotation.php - Part of the wordpress-database-abstraction project.
+  Model.php - Part of the wordpress-database-abstraction project.
 
   © - Jitesoft 2018
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -9,10 +9,13 @@ namespace Jitesoft\WordPress\DBAL\Annotations;
 use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
+ * Model
+ * @author Johannes Tegnér <johannes@jitesoft.com>
+ * @version 1.0.0
  * @Annotation
  * @Target("CLASS")
  */
-final class ModelAnnotation {
+final class Model {
     /**
      * @var string
      * @Required

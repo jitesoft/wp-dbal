@@ -1,16 +1,16 @@
 <?php
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-  OneToOneAnnotation.php - Part of the wordpress-database-abstraction project.
+  BelongsTo.php
 
   © - Jitesoft 2018
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Annotations;
 
 /**
- * OneToOneAnnotation
+ * BelongsTo
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  */
-class OneToOneAnnotation {
+class BelongsTo {
 
 }

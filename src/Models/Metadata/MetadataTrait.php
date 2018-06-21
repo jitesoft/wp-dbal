@@ -8,10 +8,9 @@ namespace Jitesoft\WordPress\DBAL\Models\Metadata;
 
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
-use function get_called_class;
 use Jitesoft\Exceptions\Database\Entity\EntityException;
-use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
-use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
 use ReflectionClass;
 use ReflectionException;
 
@@ -60,7 +59,7 @@ trait MetadataTrait {
 
         $reflectionClass = $this->getReflectionClass(get_called_class());
         $properties      = $reflectionClass->getProperties();
-        $modelAnnotation = self::$annotationReader->getClassAnnotation($reflectionClass, ModelAnnotation::class);
+        $modelAnnotation = self::$annotationReader->getClassAnnotation($reflectionClass, Model::class);
 
         if ($modelAnnotation === null) {
             throw new EntityException(
@@ -70,7 +69,7 @@ trait MetadataTrait {
 
         $fields = [];
         foreach ($properties as $property) {
-            $annotation = self::$annotationReader->getPropertyAnnotation($property, ModelFieldAnnotation::class);
+            $annotation = self::$annotationReader->getPropertyAnnotation($property, Field::class);
             if (!$annotation) {
                 continue;
             }

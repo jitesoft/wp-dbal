@@ -6,9 +6,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Tests\Annotations;
 
-use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 use Jitesoft\WordPress\DBAL\Models\AbstractModel;
-use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation as Field;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
 use Jitesoft\WordPress\DBAL\Tests\AbstractTestCase;
 
 /**
@@ -64,7 +64,7 @@ class ModelFieldAnnotationTest extends AbstractTestCase {
 }
 
 /**
- * @ModelAnnotation(table="abc")
+ * @Model(table="abc")
  */
 class TestModel_ModelFieldAnnotationTest extends AbstractModel {
 

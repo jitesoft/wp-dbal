@@ -6,11 +6,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Tests\Annotations;
 
-use function class_exists;
-use Jitesoft\WordPress\DBAL\Annotations as OOO;
+use Jitesoft\Exceptions\Database\Entity\EntityException;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 use Jitesoft\WordPress\DBAL\Tests\AbstractTestCase;
-use function var_dump;
 
 /**
  * ModelAnnotationTest
@@ -26,20 +25,20 @@ class ModelAnnotationTest extends AbstractTestCase {
         $this->assertEquals('test2', $table->getTableName());
     }
 
-/*    public function testGetTableNameFailure() {
-        $this->expectException(AnnotationException::class);
+    public function testGetTableNameFailure() {
+        $this->expectException(EntityException::class);
         (new TestModel_ModelAnnotationTest_3())->getTableName();
-    }*/
+    }
 
 }
 
 /**
- * @OOO\ModelAnnotation(table="test1")
+ * @Model(table="test1")
  */
 class TestModel_ModelAnnotationTest_1 extends AbstractModel { }
 
 /**
- * @OOO\ModelAnnotation(table="test2")
+ * @Model(table="test2")
  */
 class TestModel_ModelAnnotationTest_2 extends AbstractModel { }
 
