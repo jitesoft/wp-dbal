@@ -5,6 +5,7 @@
   © - Jitesoft 2018
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Contracts;
+
 use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\WordPress\DBAL\Models\User;
 

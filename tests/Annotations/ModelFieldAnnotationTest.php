@@ -7,11 +7,9 @@
 namespace Jitesoft\WordPress\DBAL\Tests\Annotations;
 
 use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
-use Jitesoft\WordPress\DBAL\Manager;
 use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation as Field;
 use Jitesoft\WordPress\DBAL\Tests\AbstractTestCase;
-use PHPUnit\Framework\TestCase;
 
 /**
  * ModelAnnotationTest
@@ -20,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ModelFieldAnnotationTest extends AbstractTestCase {
 
-    gipublic function testGetAllFields() {
+    public function testGetAllFields() {
         $model  = new TestModel_ModelFieldAnnotationTest();
         $fields = $model->getFields();
         $this->assertCount(5, $fields);

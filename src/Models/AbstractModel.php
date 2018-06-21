@@ -43,23 +43,11 @@ class AbstractModel implements JsonSerializable {
     /**
      * @param bool $includeHidden
      * @return array
-     * @throws AnnotationException
      * @throws EntityException
      */
     public function getFields(bool $includeHidden = true): array {
-        try {
-            $metadata = $this->getMetadata();
-        } catch (ReflectionException $ex) {
-            throw new EntityException(
-                'Failed to fetch model fields. Reflection error.',
-                get_called_class(),
-                null,
-                0,
-                $ex
-            );
-        }
-
-        $fields = [];
+        $metadata = $this->getMetadata();
+        $fields   = [];
         foreach ($metadata->getFields() as $property) {
             if (!$includeHidden && $property->isHidden()) {
                 continue;

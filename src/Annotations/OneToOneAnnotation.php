@@ -5,18 +5,12 @@
   © - Jitesoft 2018
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Annotations;
-use mindplay\annotations\IAnnotation;
 
 /**
  * OneToOneAnnotation
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  */
-class OneToOneAnnotation implements IAnnotation {
+class OneToOneAnnotation {
 
-    public function initAnnotation(array $properties) {
-
-
-
-    }
 }

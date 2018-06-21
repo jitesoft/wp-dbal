@@ -89,7 +89,6 @@ trait MetadataTrait {
                 $annotation->hidden
             );
 
-
             if ($inaccessible) {
                 $property->setAccessible(false);
             }
