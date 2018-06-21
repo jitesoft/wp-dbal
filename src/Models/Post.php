@@ -80,8 +80,3 @@ class Post extends AbstractModel {
 
 
 }
-
-// Entity $table
-// Field $name, $type
-// HaveMany $model
-// HaveOne $model
