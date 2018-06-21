@@ -6,7 +6,10 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Jitesoft\Exceptions\Database\Entity\EntityException;
+use Jitesoft\Exceptions\Json\JsonException;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataTrait;
+use JsonSerializable;
 use mindplay\annotations\AnnotationException;
 use ReflectionException;
 
@@ -15,7 +18,7 @@ use ReflectionException;
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  */
-class AbstractModel {
+class AbstractModel implements JsonSerializable {
     use MetadataTrait;
 
     /**
@@ -39,13 +42,21 @@ class AbstractModel {
 
     /**
      * @param bool $includeHidden
-     * @return array|null If null, a failure occurred.
+     * @return array
+     * @throws AnnotationException
+     * @throws EntityException
      */
-    public function getFields(bool $includeHidden = true): ?array {
+    public function getFields(bool $includeHidden = true): array {
         try {
             $metadata = $this->getMetadata();
         } catch (ReflectionException $ex) {
-            return null;
+            throw new EntityException(
+                'Failed to fetch model fields. Reflection error.',
+                get_called_class(),
+                null,
+                0,
+                $ex
+            );
         }
 
         $fields = [];
@@ -58,6 +69,29 @@ class AbstractModel {
         }
 
         return $fields;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON.
+     *
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     *               which is a value of any type other than a resource.
+     *
+     * @since 5.4.0
+     * @throws JsonException
+     */
+    public function jsonSerialize() {
+        try {
+            return $this->getFields(false);
+        } catch (AnnotationException $ex) {
+            $class = get_called_class();
+            throw new JsonException(sprintf('Failed to convert model `%s` to json.', $class), null, null, null, 0, $ex);
+        } catch (EntityException $ex) {
+            $class = get_called_class();
+            throw new JsonException(sprintf('Failed to convert model `%s` to json.', $class), null, null, null, 0, $ex);
+        }
     }
 
 }
