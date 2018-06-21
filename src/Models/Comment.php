@@ -206,13 +206,6 @@ class Comment {
     }
 
     /**
-     * @return Carbon
-     */
-    public function getCommentDateGmt(): Carbon {
-        return $this->commentDateGMT;
-    }
-
-    /**
      * @return string
      */
     public function getContent(): string {
