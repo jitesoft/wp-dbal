@@ -6,11 +6,14 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models\Metadata;
 
+use Doctrine\Common\Annotations\AnnotationException;
+use Doctrine\Common\Annotations\AnnotationReader;
+use function get_called_class;
+use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
 use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation;
-use mindplay\annotations\AnnotationException;
-use mindplay\annotations\Annotations;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * MetadataTrait
@@ -19,53 +22,81 @@ use ReflectionClass;
  */
 trait MetadataTrait {
 
+    private static $annotationReader = null;
+
+    /**
+     * @param string $className
+     * @return ReflectionClass
+     * @throws EntityException
+     */
+    private function getReflectionClass(string $className) {
+        try {
+            return new ReflectionClass($className);
+        } catch (ReflectionException $ex) {
+            throw new EntityException('Failed to read annotations from the entity.', $className, null, 0, $ex);
+        }
+    }
+
     /**
      * Fetch class metadata.
      *
      * @return ModelMetadata
-     * @throws \ReflectionException
-     * @throws AnnotationException
+     * @throws EntityException
      */
     protected function getMetadata(): ModelMetadata {
-        $reflectionClass = new ReflectionClass(get_called_class());
-        $properties      = $reflectionClass->getProperties();
-
-        $out = [];
-        foreach ($properties as $property) {
-            /** @var ModelFieldAnnotation[] $fields */
-            $fields = Annotations::ofProperty($reflectionClass->getName(), $property->getName(), '@field');
-            if (count($fields) > 0) {
-                $inAccessible = $property->isPrivate() || $property->isProtected();
-
-                if ($inAccessible) {
-                    $property->setAccessible(true);
-                }
-
-                $name  = $fields[0]->getName() ?? $property->getName();
-                $out[] = new MetadataProperty(
-                    $name,
-                    $property->getName(),
-                    $property->getValue($this),
-                    $fields[0]->isHidden()
+        if (self::$annotationReader === null) {
+            try {
+                self::$annotationReader = new AnnotationReader();
+            } catch (AnnotationException $ex) {
+                throw new EntityException(
+                    'Failed to initialize the Annotation reader.',
+                    get_called_class(),
+                    null,
+                    0,
+                    $ex
                 );
-
-                if ($inAccessible) {
-                    $property->setAccessible(false);
-                }
             }
         }
 
-        /** @var ModelAnnotation[] $classAnnotations */
-        $classAnnotations = Annotations::ofClass($this, '@model');
-        if (count($classAnnotations) <= 0) {
-            throw new AnnotationException(
-                'Failed to create metadata, the `model` class annotation is required.'
+        $reflectionClass = $this->getReflectionClass(get_called_class());
+        $properties      = $reflectionClass->getProperties();
+        $modelAnnotation = self::$annotationReader->getClassAnnotation($reflectionClass, ModelAnnotation::class);
+
+        if ($modelAnnotation === null) {
+            throw new EntityException(
+                'Failed to create metadata, ModelAnnotation class annotation is required.'
             );
         }
 
-        $table = $classAnnotations[0]->getTable();
+        $fields = [];
+        foreach ($properties as $property) {
+            $annotation = self::$annotationReader->getPropertyAnnotation($property, ModelFieldAnnotation::class);
+            if (!$annotation) {
+                continue;
+            }
 
-        return new ModelMetadata($table, $out);
+            $inaccessible = $property->isPrivate() || $property->isProtected();
+
+            if ($inaccessible) {
+                $property->setAccessible(true);
+            }
+
+            $name     = $annotation->name ?? $property->getName();
+            $fields[] = new MetadataProperty(
+                $name,
+                $property->getName(),
+                $property->getValue($this),
+                $annotation->hidden
+            );
+
+
+            if ($inaccessible) {
+                $property->setAccessible(false);
+            }
+        }
+
+        $table = $modelAnnotation->table;
+        return new ModelMetadata($table, $fields);
     }
 
 }

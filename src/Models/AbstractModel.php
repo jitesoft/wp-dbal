@@ -6,11 +6,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Doctrine\Common\Annotations\AnnotationException;
 use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\Exceptions\Json\JsonException;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataTrait;
 use JsonSerializable;
-use mindplay\annotations\AnnotationException;
 use ReflectionException;
 
 /**

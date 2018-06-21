@@ -6,32 +6,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Annotations;
 
-use mindplay\annotations\IAnnotation;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
- * ModelAnnotation
- * @author Johannes Tegnér <johannes@jitesoft.com>
- * @version 1.0.0
- *
- * @usage('class'=>true, 'inherited'=>false)
+ * @Annotation
+ * @Target("CLASS")
  */
-class ModelAnnotation implements IAnnotation {
-    public const ANNOTATION_IDENTIFIER = "model";
-
-    private $table;
-
+final class ModelAnnotation {
     /**
-     * @return string|null
+     * @var string
+     * @Required
      */
-    public function getTable(): ?string {
-        return $this->table;
-    }
-
-    /**
-     * @param array $properties
-     */
-    public function initAnnotation(array $properties) {
-        $this->table = array_key_exists('table', $properties) ? $properties['table'] : null;
-    }
-
+    public $table;
 }

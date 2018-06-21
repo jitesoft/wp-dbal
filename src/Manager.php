@@ -6,6 +6,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Jitesoft\WordPress\DBAL\Annotations\AnnotationLoader;
 use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
 use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation;
 use mindplay\annotations\AnnotationCache;
@@ -17,19 +19,16 @@ use mindplay\annotations\Annotations;
  * @version 1.0.0
  */
 class Manager {
-    private static $manager;
+    private static $manager = null;
 
     private function __construct() {
         include_once __DIR__ . '/../vendor/autoload.php';
 
-        Annotations::$config['cache'] = new AnnotationCache(__DIR__ . '/../cache');
-
-        Annotations::getManager()->registry[ModelAnnotation::ANNOTATION_IDENTIFIER]      = ModelAnnotation::class;
-        Annotations::getManager()->registry[ModelFieldAnnotation::ANNOTATION_IDENTIFIER] = ModelFieldAnnotation::class;
+        AnnotationRegistry::registerLoader('class_exists');
     }
 
     public static function create() {
-        if (!self::$manager) {
+        if (self::$manager === null) {
             self::$manager = new Manager();
         }
 

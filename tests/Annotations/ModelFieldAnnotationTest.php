@@ -6,8 +6,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Tests\Annotations;
 
+use Jitesoft\WordPress\DBAL\Annotations\ModelAnnotation;
 use Jitesoft\WordPress\DBAL\Manager;
 use Jitesoft\WordPress\DBAL\Models\AbstractModel;
+use Jitesoft\WordPress\DBAL\Annotations\ModelFieldAnnotation as Field;
+use Jitesoft\WordPress\DBAL\Tests\AbstractTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,15 +18,9 @@ use PHPUnit\Framework\TestCase;
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  */
-class ModelFieldAnnotationTest extends TestCase {
+class ModelFieldAnnotationTest extends AbstractTestCase {
 
-    protected function setUp() {
-        parent::setUp();
-
-        Manager::create();
-    }
-
-    public function testGetAllFields() {
+    gipublic function testGetAllFields() {
         $model  = new TestModel_ModelFieldAnnotationTest();
         $fields = $model->getFields();
         $this->assertCount(5, $fields);
@@ -69,7 +66,7 @@ class ModelFieldAnnotationTest extends TestCase {
 }
 
 /**
- * @model
+ * @ModelAnnotation(table="abc")
  */
 class TestModel_ModelFieldAnnotationTest extends AbstractModel {
 
@@ -77,31 +74,31 @@ class TestModel_ModelFieldAnnotationTest extends AbstractModel {
 
     /**
      * @var string
-     * @field
+     * @Field
      */
     private $noName;
 
     /**
      * @var string
-     * @field('name'=>"property_one", 'hidden' => false)
+     * @Field(name="property_one", hidden=false)
      */
     private $propertyOne = "one";
 
     /**
      * @var int
-     * @field('name'=>"property_two")
+     * @Field(name="property_two")
      */
     private $propertyTwo = 5;
 
     /**
      * @var string
-     * @field('name'=>"hidden_one", 'hidden'=>true)
+     * @field(name="hidden_one", hidden=true)
      */
     private $hiddenPropertyOne = "hiddenOne";
 
     /**
      * @var int
-     * @field('name'=>"hidden_two", 'hidden'=>true)
+     * @field(name="hidden_two", hidden=true)
      */
     private $hiddenPropertyTwo = 10;
 
