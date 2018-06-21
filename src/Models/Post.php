@@ -162,12 +162,9 @@ class Post extends AbstractModel {
      * @param string $content
      */
     public function __construct(User $author, string $title, string $content) {
-
         $this->author  = $author->getId();
         $this->title   = $title;
         $this->content = $content;
-
-
 
         $this->postedAt      = Carbon::now('UTC');
         $this->postedAtGMT   = Carbon::now('GMT');
