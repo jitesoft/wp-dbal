@@ -6,36 +6,39 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+
 /**
  * CommentMeta
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>'wp_commentmeta')
+ * @Model(table="wp_commentmeta", primaryKey="meta_id")
  */
 class CommentMeta extends AbstractModel {
 
     /**
      * @var int|null
-     * @field('name'=>"meta_id")
+     * @Field(name="meta_id")
      */
     private $id;
 
     /**
      * @var int
-     * @field('name'=>"comment_id")
+     * @Field(name="comment_id")
      */
     private $commentId;
 
     /**
      * @var string
-     * @field('name'=>"meta_key")
+     * @Field(name="meta_key")
      */
     private $key;
 
     /**
      * @var string
-     * @field('name'=>"meta_value")
+     * @Field(name="meta_value")
      */
     private $value;
 

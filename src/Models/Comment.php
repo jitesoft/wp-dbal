@@ -7,49 +7,51 @@
 namespace Jitesoft\WordPress\DBAL\Models;
 
 use Carbon\Carbon;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 
 /**
  * Comment
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_comments")
+ * @Model(table="wp_comments", primaryKey="comment_ID")
  */
 class Comment {
 
     /**
      * @var int
-     * @field('name'=>"comment_ID")
+     * @Field(name="comment_ID")
      */
     private $id;
 
     /**
      * @var int
-     * @field('name'=>"user_id")
+     * @Field(name="user_id")
      */
     private $userId;
 
     /**
      * @var int
-     * @field('name'=>"comment_post_ID")
+     * @Field(name="comment_post_ID")
      */
     private $postId;
 
     /**
      * @var string
-     * @field('name'=>"comment_author")
+     * @Field(name="comment_author")
      */
     private $author;
 
     /**
      * @var string
-     * @field('name'=>"comment_author_email")
+     * @Field(name="comment_author_email")
      */
     private $authorEmail;
 
     /**
      * @var string
-     * @field('name'=>"comment_author_url")
+     * @Field(name="comment_author_url")
      */
     private $authorUrl;
 
@@ -61,49 +63,49 @@ class Comment {
 
     /**
      * @var Carbon
-     * @field('name'=>"comment_date")
+     * @Field(name="comment_date")
      */
     private $commentDate;
 
     /**
      * @var Carbon
-     * @field('name'=>"comment_date_gmt")
+     * @Field(name="comment_date_gmt")
      */
     private $commentDateGMT;
 
     /**
      * @var string
-     * @field('name'=>"comment_content")
+     * @Field(name="comment_content")
      */
     private $content;
 
     /**
      * @var int
-     * @field('name'=>"comment_karma")
+     * @Field(name="comment_karma")
      */
     private $karma;
 
     /**
      * @var bool
-     * @field('name'=>"comment_approved")
+     * @Field(name="comment_approved")
      */
     private $approved;
 
     /**
      * @var string
-     * @field('name'=>"comment_agent")
+     * @Field(name="comment_agent")
      */
     private $agent;
 
     /**
      * @var string
-     * @field('name'=>"comment_type")
+     * @Field(name="comment_type")
      */
     private $type;
 
     /**
      * @var int
-     * @field('name'=>"comment_parent")
+     * @Field(name="comment_parent")
      */
     private $parent;
 

@@ -7,73 +7,75 @@
 namespace Jitesoft\WordPress\DBAL\Models;
 
 use Carbon\Carbon;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 
 /**
  * User
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_users")
+ * @Model(table="wp_users", primaryKey="ID")
  */
 class User extends AbstractModel {
 
     /**
      * @var int
-     * @field('name'=>"ID")
+     * @Field(name="ID")
      */
     private $id;
 
     /**
      * @var string
-     * @field('name'=>"user_login")
+     * @Field(name="user_login")
      */
     private $login;
 
     /**
      * @var string
-     * @field('name'=>"user_pass")
+     * @Field(name="user_pass")
      */
     private $password;
 
     /**
      * @var string
-     * @field('name'=>"user_nicename")
+     * @Field(name="user_nicename")
      */
     private $niceName;
 
     /**
      * @var string
-     * @field('name'=>"user_email")
+     * @Field(name="user_email")
      */
     private $email;
 
     /**
      * @var string
-     * @field('name'=>"user_url")
+     * @Field(name="user_url")
      */
     private $url;
 
     /**
      * @var Carbon
-     * @field('name'=>"user_registered")
+     * @Field(name="user_registered")
      */
     private $registered;
 
     /**
      * @var string
-     * @field('name'=>"user_activation_key")
+     * @Field(name="user_activation_key")
      */
     private $activationKey;
 
     /**
      * @var int
-     * @field('name'=>"user_status")
+     * @Field(name="user_status")
      */
     private $status;
 
     /**
      * @var string
-     * @field('name'=>"display_name")
+     * @Field(name="display_name")
      */
     private $displayName;
 

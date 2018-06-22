@@ -6,36 +6,39 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+
 /**
  * UserMeta
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_usermeta")
+ * @Model('table'="wp_usermeta", primaryKey="umeta_id")
  */
 class UserMeta extends AbstractModel {
 
     /**
      * @var int
-     * @field('name'=>"umeta_id")
+     * @Field(name="umeta_id")
      */
     private $id;
 
     /**
      * @var int
-     * @field('name'=>"user_id")
+     * @Field(name="user_id")
      */
     private $userId;
 
     /**
      * @var string
-     * @field('name'=>"meta_key")
+     * @Field(name="meta_key")
      */
     private $key;
 
     /**
      * @var string
-     * @field('name'=>"meta_value")
+     * @Field(name="meta_value")
      */
     private $value;
 

@@ -7,151 +7,153 @@
 namespace Jitesoft\WordPress\DBAL\Models;
 
 use Carbon\Carbon;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 
 /**
  * Post
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @Entity(table="wp_posts")
+ * @Model(table="wp_posts", primaryKey="ID")
  */
 class Post extends AbstractModel {
 
     /**
      * @var int
-     * @field(name="ID")
+     * @Field(name="ID")
      */
     private $id;
 
     /**
      * @var int
-     * @field(name="post_author")
+     * @Field(name="post_author")
      */
     private $author;
 
     /**
      * @var Carbon
-     * @field(name="post_date")
+     * @Field(name="post_date")
      */
     private $postedAt;
 
     /**
      * @var Carbon
-     * @field(name="post_date_gmt")
+     * @Field(name="post_date_gmt")
      */
     private $postedAtGMT;
 
     /**
      * @var Carbon
-     * @field(name="post_modified")
+     * @Field(name="post_modified")
      */
     private $modifiedAt;
 
     /**
      * @var Carbon
-     * @field(name="post_modified")
+     * @Field(name="post_modified")
      */
     private $modifiedAtGMT;
 
     /**
      * @var string
-     * @field(name="post_content")
+     * @Field(name="post_content")
      */
     private $content;
 
     /**
      * @var string
-     * @field(name="post_title")
+     * @Field(name="post_title")
      */
     private $title;
 
     /**
      * @var string
-     * @field(name="post_excerpt")
+     * @Field(name="post_excerpt")
      */
     private $excerpt;
 
     /**
      * @var string
-     * @field('name'=>"post_status")
+     * @Field(name="post_status")
      */
     private $status;
 
     /**
      * @var string
-     * @field('name'=>"comment_status")
+     * @Field(name="comment_status")
      */
     private $commentStatus;
 
     /**
      * @var string
-     * @field('name'=>"ping_status")
+     * @Field(name="ping_status")
      */
     private $pingStatus;
 
     /**
      * @var string
-     * @field('name'=>"post_password")
+     * @Field(name="post_password")
      */
     private $postPassword;
 
     /**
      * @var string
-     * @field('name'=>"post_name")
+     * @Field(name="post_name")
      */
     private $postName;
 
     /**
      * @var string
-     * @field('name'=>"to_ping")
+     * @Field(name="to_ping")
      */
     private $toPing;
 
     /**
      * @var string
-     * @field('name'=>"pinged")
+     * @Field(name="pinged")
      */
     private $pinged;
 
     /**
      * @var string
-     * @field('name'=>"post_content_filtered")
+     * @Field(name="post_content_filtered")
      */
     private $postContentFiltered;
 
     /**
      * @var int
-     * @field('name'=>"post_parent")
+     * @Field(name="post_parent")
      */
     private $parent;
 
     /**
      * @var string
-     * @field('name'=>"guid")
+     * @Field(name="guid")
      */
     private $guid;
 
     /**
      * @var int
-     * @field('name'=>"menu_order")
+     * @Field(name="menu_order")
      */
     private $menuOrder;
 
     /**
      * @var string
-     * @field('name'=>"post_type")
+     * @Field(name="post_type")
      */
     private $type;
 
     /**
      * @var string
-     * @field('name'=>"post_mime_type")
+     * @Field(name="post_mime_type")
      */
     private $postMimeType;
 
     /**
      * @var int
-     * @field('name'=>"comment_count")
+     * @Field(name="comment_count")
      */
     private $commentCount;
 

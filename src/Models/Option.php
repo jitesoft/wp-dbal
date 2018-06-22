@@ -6,36 +6,39 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+
 /**
  * Option
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_options")
+ * @Model(table="wp_options", primaryKey="option_id")
  */
 class Option {
 
     /**
      * @var int
-     * @field('name'=>"option_id")
+     * @Field(name="option_id")
      */
     private $id;
 
     /**
      * @var string
-     * @field('name'=>"option_name")
+     * @Field(name="option_name")
      */
     private $name;
 
     /**
      * @var string
-     * @field('name'=>"option_value")
+     * @Field(name="option_value")
      */
     private $value;
 
     /**
      * @var string
-     * @field('name'=>"autoload")
+     * @Field(name="autoload")
      */
     private $autoload;
 

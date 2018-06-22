@@ -6,36 +6,39 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 namespace Jitesoft\WordPress\DBAL\Models;
 
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+
 /**
  * PostMeta
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_postmeta")
+ * @Model(table="wp_postmeta", primaryKey="meta_id")
  */
 class PostMeta {
 
     /**
      * @var int
-     * @field('name'=>"meta_id")
+     * @Field(name="meta_id")
      */
     private $id;
 
     /**
      * @var int
-     * @field('name'=>"post_id")
+     * @Field(name="post_id")
      */
     private $postId;
 
     /**
      * @var string
-     * @field('name'=>"meta_key")
+     * @Field(name="meta_key")
      */
     private $key;
 
     /**
      * @var string
-     * @field('name'=>"meta_value")
+     * @Field(name="meta_value")
      */
     private $value;
 

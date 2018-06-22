@@ -7,55 +7,57 @@
 namespace Jitesoft\WordPress\DBAL\Models;
 
 use Carbon\Carbon;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
 
 /**
  * Link
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
  *
- * @model('table'=>"wp_links")
+ * @Model(table="wp_links", primaryKey="link_id")
  */
 class Link {
 
     /**
      * @var int
-     * @field('name'=>"link_id")
+     * @Field(name="link_id")
      */
     private $id;
 
     /**
      * @var string
-     * @field('name'=>"link_url")
+     * @Field(name="link_url")
      */
     private $url;
 
     /**
      * @var string
-     * @field('name'=>"link_name")
+     * @Field(name="link_name")
      */
     private $name;
 
     /**
      * @var string
-     * @field('name'=>"link_image")
+     * @Field(name="link_image")
      */
     private $image;
 
     /**
      * @var string
-     * @field('name'=>"link_target")
+     * @Field(name="link_target")
      */
     private $target;
 
     /**
      * @var string
-     * @field('name'=>"link_description")
+     * @Field(name="link_description")
      */
     private $description;
 
     /**
      * @var bool
-     * @field('name'=>"link_visible")
+     * @Field(name="link_visible")
      */
     private $visible;
 
@@ -63,37 +65,37 @@ class Link {
      * @todo: Should this be a int or a User object at the end?
      *
      * @var int
-     * @field('name'=>"link_owner")
+     * @Field(name="link_owner")
      */
     private $owner;
 
     /**
      * @var int
-     * @field('name'=>"link_rating")
+     * @Field(name="link_rating")
      */
     private $rating;
 
     /**
      * @var Carbon
-     * @field('name'=>"link_updated")
+     * @Field(name="link_updated")
      */
     private $updated;
 
     /**
      * @var string
-     * @field('name'=>"link_rel")
+     * @Field(name="link_rel")
      */
     private $rel;
 
     /**
      * @var string
-     * @field('name'=>"link_notes")
+     * @Field(name="link_notes")
      */
     private $notes;
 
     /**
      * @var string
-     * @field('name'=>"link_rss")
+     * @Field(name="link_rss")
      */
     private $rss;
 
