@@ -13,14 +13,17 @@ A model extends the `AbstractModel` class, which gives it a few methods and trai
 projects underlying classes.  
 Further more, to allow the model to be able to interact correctly with the database a few annotations are available to use:
 
-* `model`
-* `field`
+* `Model`
+* `Field`
 
-The `model` annotation is required on a model class, it marks the class as a entity and exposes the database table used by the model through a annotation variable:
+The `Model` annotation is required on a model class, it marks the class as a entity and exposes the database table used by the model through a annotation variable:
 
 ```php
+<?php
+use Jitesoft\WordPress\DBAL\Annotations;
+
 /**
- * @model('table'=>"my_database_table")
+ * @Model('table'=>"my_database_table")
  */
 class MyModel extends AbstractModel {
 }
@@ -30,23 +33,26 @@ The model also have to expose fields to the database handler, each field should 
 Thanks to the use of reflection, the project can access any type of variables in the model, hence it's important that the fields to be
 exported are correctly annotated.
 
-The annotation for fields is simply `field`. It exposes two variables: `name`, `hidden`, in which the first is a mapping to the database field name
+The annotation for fields is simply `Field`. It exposes two variables: `name`, `hidden`, in which the first is a mapping to the database field name
 and the second marks the field hidden to the json_encode method.
 
 ```php
+<?php
+use Jitesoft\WordPress\DBAL\Annotations;
+
 /**
- * @model('table'=>"my_database_table")
+ * @Model(table="my_database_table")
  */
 class MyModel extends AbstractModel {
   
   /** @var int
-   *  @field('name'=>"my_database_id_field")
+   *  @Field(name="my_database_id_field")
    */
   private $id;
 
   /**
    * @var string
-   * @field('name'=>"my_hidden_field", 'hidden'=>true)
+   * @Field(name="my_hidden_field", hidden=true)
    */
   private $secret;
 }
