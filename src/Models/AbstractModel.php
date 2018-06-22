@@ -8,6 +8,7 @@ namespace Jitesoft\WordPress\DBAL\Models;
 
 use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\Exceptions\Json\JsonException;
+use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataProperty;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataTrait;
 use JsonSerializable;
 
@@ -59,7 +60,16 @@ class AbstractModel implements JsonSerializable {
      */
     public function jsonSerialize() {
         try {
-            return $this->getFields(false);
+            return [
+                'type' => $this->getTableName(),
+                'fields' => array_map(function(MetadataProperty $property) {
+                    return [
+                        'field'    => $property->getName(),
+                        'property' => $property->getRealName(),
+                        'value'    => $property->getValue()
+                    ];
+                }, $this->getFields(false))
+            ];
         } catch (EntityException $ex) {
             $class = get_called_class();
             throw new JsonException(sprintf('Failed to convert model `%s` to json.', $class), null, null, null, 0, $ex);
