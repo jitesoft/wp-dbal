@@ -20,7 +20,8 @@ The `Model` annotation is required on a model class, it marks the class as a ent
 
 ```php
 <?php
-use Jitesoft\WordPress\DBAL\Annotations;
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 
 /**
  * @Model('table'=>"my_database_table")
@@ -38,8 +39,9 @@ and the second marks the field hidden to the json_encode method.
 
 ```php
 <?php
-use Jitesoft\WordPress\DBAL\Annotations;
-
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+use Jitesoft\WordPress\DBAL\Models\AbstractModel;
+use Jitesoft\WordPress\DBAL\Annotations\Field;
 /**
  * @Model(table="my_database_table")
  */
