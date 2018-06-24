@@ -104,7 +104,8 @@ trait MetadataTrait {
                 $out[] = $relation;
             }
         }
-        RETURN $out;
+
+        return $out;
     }
 
     /**
@@ -120,7 +121,6 @@ trait MetadataTrait {
             }
 
             $inaccessible = $property->isPrivate() || $property->isProtected();
-
             if ($inaccessible) {
                 $property->setAccessible(true);
             }
@@ -137,6 +137,7 @@ trait MetadataTrait {
                 $property->setAccessible(false);
             }
         }
+
         return $fields;
     }
 
