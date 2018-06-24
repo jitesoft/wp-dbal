@@ -20,6 +20,7 @@ use JsonSerializable;
 class AbstractModel implements JsonSerializable {
     use MetadataTrait;
 
+
     /**
      * @return null|string If null, a failure occurred.
      * @throws EntityException

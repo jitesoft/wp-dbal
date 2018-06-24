@@ -9,10 +9,14 @@ namespace Jitesoft\WordPress\DBAL\Models\Metadata;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Jitesoft\Exceptions\Database\Entity\EntityException;
+use Jitesoft\WordPress\DBAL\Annotations\BelongsTo;
+use Jitesoft\WordPress\DBAL\Annotations\HasMany;
+use Jitesoft\WordPress\DBAL\Annotations\HasOne;
 use Jitesoft\WordPress\DBAL\Annotations\Model;
 use Jitesoft\WordPress\DBAL\Annotations\Field;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionProperty;
 
 /**
  * MetadataTrait
@@ -21,6 +25,7 @@ use ReflectionException;
  */
 trait MetadataTrait {
 
+    /** @var AnnotationReader */
     private static $annotationReader = null;
 
     /**
@@ -67,6 +72,46 @@ trait MetadataTrait {
             );
         }
 
+        $relations = $this->getRelationships($properties);
+        $fields    = $this->getProperties($properties);
+
+        $table = $modelAnnotation->table;
+        return new ModelMetadata($table, $fields, $relations);
+    }
+
+    /**
+     * @param array|ReflectionProperty[] $properties
+     * @return array|RelationMetadata[]
+     */
+    private function getRelationships(array $properties) {
+        $relations = [ HasMany::class, HasOne::class, BelongsTo::class ];
+
+        $out = [];
+        foreach ($relations as $relation) {
+            foreach ($properties as $prop) {
+                $annotation = self::$annotationReader->getPropertyAnnotation($prop, $relation);
+                if ($annotation === null) {
+                    continue;
+                }
+
+                $relation = new RelationMetadata(
+                    $prop->getDeclaringClass()->getName(),
+                    $annotation->target,
+                    $annotation->joinOn,
+                    $annotation->load
+                );
+
+                $out[] = $relation;
+            }
+        }
+        RETURN $out;
+    }
+
+    /**
+     * @param array|ReflectionProperty[] $properties
+     * @return array
+     */
+    private function getProperties(array $properties): array {
         $fields = [];
         foreach ($properties as $property) {
             $annotation = self::$annotationReader->getPropertyAnnotation($property, Field::class);
@@ -92,9 +137,7 @@ trait MetadataTrait {
                 $property->setAccessible(false);
             }
         }
-
-        $table = $modelAnnotation->table;
-        return new ModelMetadata($table, $fields);
+        return $fields;
     }
 
 }

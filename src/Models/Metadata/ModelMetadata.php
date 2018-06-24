@@ -16,16 +16,19 @@ class ModelMetadata {
 
     private $fields;
     private $table;
+    private $relations;
 
     /**
      * ModelMetadata constructor.
      * @internal
      * @param string|null $table
-     * @param array  $fields
+     * @param array       $fields
+     * @param array       $relations
      */
-    public function __construct(?string $table, array $fields) {
-        $this->table  = $table;
-        $this->fields = $fields;
+    public function __construct(?string $table, array $fields, array $relations = []) {
+        $this->table     = $table;
+        $this->fields    = $fields;
+        $this->relations = $relations;
     }
 
     public function __get($name) {
@@ -50,6 +53,13 @@ class ModelMetadata {
      */
     public function getFields(): array {
         return $this->fields;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelations() : array {
+        return [];
     }
 
 }
