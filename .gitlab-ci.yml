@@ -21,7 +21,7 @@ test:
     - phpunit --configuration phpunit.xml --colors=never --coverage-text
     - vendor/bin/phpcs -p --report=summary --standard=style.xml src
 
-sast:
+.sast:
   dependencies:
     - build
   stage: test
@@ -41,7 +41,7 @@ sast:
   artifacts:
     paths: [gl-sast-report.json]
 
-dependency_scanning:
+.dependency_scanning:
   dependencies:
     - build
   stage: test
