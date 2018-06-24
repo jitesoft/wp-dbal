@@ -23,7 +23,7 @@ class BelongsTo {
      * @var AbstractModel
      * @Required
      */
-    public $parent;
+    public $target;
 
     /**
      * @var string

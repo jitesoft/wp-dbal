@@ -23,7 +23,7 @@ class HasMany {
      * @var AbstractModel
      * @Required
      */
-    public $child;
+    public $target;
 
     /**
      * @var string

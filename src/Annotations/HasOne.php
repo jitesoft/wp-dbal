@@ -23,7 +23,7 @@ class HasOne {
      * @var AbstractModel
      * @Required
      */
-    public $child;
+    public $target;
 
     /**
      * @var string
