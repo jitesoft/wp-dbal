@@ -1,15 +1,29 @@
 stages:
+  - build
   - test
 
+build:
+  stage: build
+  image: jitesoft/composer
+  script:
+    - composer install --prefer-source --no-interaction
+  artifacts:
+    paths:
+      - vendor/
+    expire_in: 2 hours
+
 test:
+  dependencies:
+    - build
   stage: test
   image: jitesoft/phpunit
   script:
-    - composer install --prefer-source --no-interaction
     - phpunit --configuration phpunit.xml --colors=never --coverage-text
     - vendor/bin/phpcs -p --report=summary --standard=style.xml src
 
 sast:
+  dependencies:
+    - build
   stage: test
   image: docker:stable
   variables:
@@ -28,6 +42,8 @@ sast:
     paths: [gl-sast-report.json]
 
 dependency_scanning:
+  dependencies:
+    - build
   stage: test
   image: docker:stable
   variables:
