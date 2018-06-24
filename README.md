@@ -1,5 +1,9 @@
 # WP-DB Abstraction
 
+**Observe** This project is currently in development and have no release yet. It is not usable in the way that it is intended to 
+be used when ready.  
+Feel free to contribute or wait for a v1.0.0 release.
+
 This project is intended to be used as a layer between the database and the logic of the webpage or application created using WordPress.  
 
 The intention is that all the base database entities should be represented by models, models which can be acquired via repositories, instead of direct queries.
