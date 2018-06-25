@@ -59,7 +59,7 @@ class ModelMetadata {
      * @return array
      */
     public function getRelations() : array {
-        return [];
+        return $this->relations;
     }
 
 }

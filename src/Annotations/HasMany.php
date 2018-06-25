@@ -20,7 +20,7 @@ use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 class HasMany {
 
     /**
-     * @var AbstractModel
+     * @var string
      * @Required
      */
     public $target;

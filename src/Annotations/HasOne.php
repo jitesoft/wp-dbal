@@ -20,7 +20,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
 class HasOne {
 
     /**
-     * @var AbstractModel
+     * @var string
      * @Required
      */
     public $target;

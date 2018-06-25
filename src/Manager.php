@@ -7,11 +7,6 @@
 namespace Jitesoft\WordPress\DBAL;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Jitesoft\WordPress\DBAL\Annotations\AnnotationLoader;
-use Jitesoft\WordPress\DBAL\Annotations\Model;
-use Jitesoft\WordPress\DBAL\Annotations\Field;
-use mindplay\annotations\AnnotationCache;
-use mindplay\annotations\Annotations;
 
 /**
  * Manager

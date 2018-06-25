@@ -20,7 +20,7 @@ use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 class BelongsTo {
 
     /**
-     * @var AbstractModel
+     * @var string
      * @Required
      */
     public $target;

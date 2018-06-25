@@ -82,6 +82,7 @@ trait MetadataTrait {
     /**
      * @param array|ReflectionProperty[] $properties
      * @return array|RelationMetadata[]
+     * @throws EntityException
      */
     private function getRelationships(array $properties) {
         $relations = [ HasMany::class, HasOne::class, BelongsTo::class ];
@@ -94,10 +95,26 @@ trait MetadataTrait {
                     continue;
                 }
 
+                try {
+                    $reflectionClass = $this->getReflectionClass($annotation->target);
+                } catch(EntityException $ex) {
+                    throw new EntityException(
+                        'Failed to create relationship. Target class was invalid.',
+                        null,
+                        null,
+                        $ex->getCode(),
+                        $ex
+                    );
+                }
+
+                $classAnnotation = self::$annotationReader->getClassAnnotation($reflectionClass, Model::class);
+                $table           = $classAnnotation->table;
+
                 $relation = new RelationMetadata(
-                    $prop->getDeclaringClass()->getName(),
                     $annotation->target,
+                    $table,
                     $annotation->joinOn,
+                    get_class($annotation),
                     $annotation->load
                 );
 

@@ -10,6 +10,7 @@ use Jitesoft\Exceptions\Database\Entity\EntityException;
 use Jitesoft\Exceptions\Json\JsonException;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataProperty;
 use Jitesoft\WordPress\DBAL\Models\Metadata\MetadataTrait;
+use Jitesoft\WordPress\DBAL\Models\Metadata\RelationMetadata;
 use JsonSerializable;
 
 /**
@@ -26,6 +27,14 @@ class AbstractModel implements JsonSerializable {
      */
     public function getTableName(): ?string {
         return $this->getMetadata()->getTable();
+    }
+
+    /**
+     * @return array|RelationMetadata[]
+     * @throws EntityException
+     */
+    public function getRelations(): array {
+        return $this->getMetadata()->getRelations();
     }
 
     /**
