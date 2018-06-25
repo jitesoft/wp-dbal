@@ -69,6 +69,10 @@ class AbstractModel implements JsonSerializable {
      */
     public function jsonSerialize() {
         try {
+            $meta   = $this->getMetadata();
+            $fields = array_filter($meta->getFields(), function(MetadataProperty $p) {
+                return !$p->isHidden();
+            });
             return [
                 'type' => $this->getTableName(),
                 'fields' => array_map(function(MetadataProperty $property) {
@@ -77,7 +81,13 @@ class AbstractModel implements JsonSerializable {
                         'property' => $property->getRealName(),
                         'value'    => $property->getValue()
                     ];
-                }, $this->getFields(false))
+                }, $fields),
+                'relations' => array_map(function(RelationMetadata $relation) {
+                    return [
+                        'type' => $relation->getRelationType(),
+                        'model' => $relation->getModel()
+                    ];
+                }, $meta->getRelations())
             ];
         } catch (EntityException $ex) {
             $class = get_called_class();

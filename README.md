@@ -29,6 +29,8 @@ Further more, to allow the model to be able to interact correctly with the datab
 * `Model`
 * `Field`
 
+### Model annotation
+
 The `Model` annotation is required on a model class, it marks the class as a entity and exposes the database table used by the model through a annotation variable:
 
 ```php
@@ -42,6 +44,10 @@ use Jitesoft\WordPress\DBAL\Models\AbstractModel;
 class MyModel extends AbstractModel {
 }
 ```
+
+_Observe, there is a `primaryKey` annotation in the model annotation which is currently not used, this is reserved for a possible later usage._
+
+### Field annotations
 
 The model also have to expose fields to the database handler, each field should be marked to be exposed but they do not have to be public.  
 Thanks to the use of reflection, the project can access any type of variables in the model, hence it's important that the fields to be
@@ -73,4 +79,54 @@ class MyModel extends AbstractModel {
 }
 ```
 
-All models will inherit the `JsonSerialize` interface from the  `AbstractModel`, by default, this method will fetch each of the none-hidden properties and return a json object with the values.
+### Relation annotations
+
+Finally, the model can define relationships inside the class using three type of annotations:
+
+* `HasOne`
+* `HasMany`
+* `BelongsTo`
+
+Using those exposes relationship metadata on the model and makes it possible to load related models on database queries.  
+Each of the annotation types exposes `target`, `joinOn` and `load` params, of which the `target` is supposed to point to the target model,
+the `joinOn` should expose the target key to join on in database queries and the `load` should be set to either `lazy`, `eager` or `never`.
+
+Example:
+
+```php
+<?php
+use Jitesoft\WordPress\DBAL\Annotations\Model;
+use Jitesoft\WordPress\DBAL\Models\AbstractModel;
+use Jitesoft\WordPress\DBAL\Annotations\BelongsTo;
+use Jitesoft\WordPress\DBAL\Annotations\HasOne;
+use Jitesoft\WordPress\DBAL\Annotations\HasMany;
+use Models\AnotherModel;
+
+/**
+ * @Model(table="my_database_table")
+ */
+class MyModel extends AbstractModel {
+  
+  /** @var AnotherModel
+   *  @BelongsTo(target="AnotherModel", joinOn="child_id", load="eager")
+   */
+  private $parent;
+
+  /**
+   * @var AnotherModel
+   * @HasOne(target="AnotherModel", joinOn="parent_id", load="lazy")
+   */
+  private $child;
+  
+  /**
+  * @var AnotherModel
+  * @HasMany(target="AnotherModel", joinOn="parent_id", load="lazy")
+  */
+  private $children;
+
+}
+```
+
+### To JSON
+
+All models will inherit the `JsonSerialize` interface from the  `AbstractModel`, by default, this method will fetch each of the none-hidden properties, all relations and the table name and return a json object with the values.

@@ -22,11 +22,14 @@ use ReflectionProperty;
  * MetadataTrait
  * @author Johannes Tegnér <johannes@jitesoft.com>
  * @version 1.0.0
+ * @internal
  */
 trait MetadataTrait {
 
     /** @var AnnotationReader */
     private static $annotationReader = null;
+
+    private $metadata;
 
     /**
      * @param string $className
@@ -46,8 +49,13 @@ trait MetadataTrait {
      *
      * @return ModelMetadata
      * @throws EntityException
+     * @internal
      */
     protected function getMetadata(): ModelMetadata {
+        if ($this->metadata !== null) {
+            return $this->metadata;
+        }
+
         if (self::$annotationReader === null) {
             try {
                 self::$annotationReader = new AnnotationReader();
@@ -74,9 +82,10 @@ trait MetadataTrait {
 
         $relations = $this->getRelationships($properties);
         $fields    = $this->getProperties($properties);
+        $table     = $modelAnnotation->table;
 
-        $table = $modelAnnotation->table;
-        return new ModelMetadata($table, $fields, $relations);
+        $this->metadata = new ModelMetadata($table, $fields, $relations);
+        return $this->metadata;
     }
 
     /**
